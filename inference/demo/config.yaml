@@ -1,0 +1,52 @@
+SSL_t:
+  model: /home/wdy/SSL/darknet/weights/SSL-T.weights
+  input: /home/wdy/SSL/darknet/test_data 
+  output: /home/wdy/SSL/darknet/output_img
+
+SSL_s:
+  model: /home/wdy/SSL/darknet/weights/SSL-S.weights 
+  input: /home/wdy/SSL/darknet/test_data 
+  output: /home/wdy/SSL/darknet/output_img
+
+mmdet_air_before:
+  model: /home/wdy/tai/model/air/cls_air_bad.pth 
+  input: /home/wdy/tai/test_data/air 
+  output: /home/wdy/tai/test_result/air
+
+mmdet_ship_before:
+  model: /home/wdy/tai/model/ship/cls_ship_bad.pth 
+  input:  /home/wdy/tai/test_data/ship
+  output:  /home/wdy/tai/test_result/ship
+mmdet_air_after:
+  model: /home/wdy/tai/model/air/cls_air.pth
+  input: /home/wdy/tai/test_data/air 
+  output: /home/wdy/tai/test_result/air
+mmdet_ship_after:
+  model:  /home/wdy/tai/model/ship/cls_ship.pth 
+  input:  /home/wdy/tai/test_data/ship
+  output: /home/wdy/tai/test_result/ship
+
+fewshot_aug:
+  model: /home/wdy/cc/darknet/mybuild/data/total/result/base/train100/aug.weights 
+  input:  /home/wdy/cc/darknet/mybuild/data/total/val 
+  output: /home/wdy/cc/darknet/aug_img
+
+fewshot_dota:
+  model: /home/wdy/cc/darknet/mybuild/data/total/result/dota/train100/dota.weights 
+  input: /home/wdy/cc/darknet/mybuild/data/total/val
+  output: /home/wdy/cc/darknet/dota_img
+
+active_before:
+  model: /home/wdy/active_learning/work_dirs/before.pth 
+  input: /home/wdy/active_learning/data/images/val
+  output: /home/wdy/active_learning/output_img
+
+active_after:
+  model: /home/wdy/active_learning/work_dirs/after.pth 
+  input: /home/wdy/active_learning/data/images/val
+  output: /home/wdy/active_learning/output_img
+
+attr:
+  model: /home/wdy/cc/darknet/build/darknet/x64/backup_z8/yolov3obj_best.weights
+  input: /home/wdy/cc/darknet/zero_dataset9/val_z9
+  output: /home/wdy/cc/darknet/zero_output
