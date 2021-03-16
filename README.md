@@ -81,5 +81,6 @@ Semi-Supervised-Learning-For-Small-Sample-Project
 ```
 ## 演示系统与自测试
 
-- 演示系统基于pyqt，映射到linux图形界面进行演示。[演示系统界面](https://github.com/IEC-lab/Semi-Supervised-Learning-For-Small-Sample-Project/blob/main/inference/demo/demo.png)
+- 演示系统基于pyqt，映射到linux图形界面进行演示。
+- [演示系统界面](https://github.com/IEC-lab/Semi-Supervised-Learning-For-Small-Sample-Project/blob/main/inference/demo/demo.png)
 - 自测试实验记录及输出结果添加在了test_data和document下，敏感数据已删除。
