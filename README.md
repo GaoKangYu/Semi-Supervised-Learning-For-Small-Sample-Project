@@ -1,6 +1,6 @@
 # Semi-Supervised-Learning-For-Small-Sample-Project
 
-“小样本”项目中使用的半监督方法、数据及技术报告
+“小样本”项目中使用的半监督方法及部分数据
 
 ## 环境需求
 -   Windows or Linux
