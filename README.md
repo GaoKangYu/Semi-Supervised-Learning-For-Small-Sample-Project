@@ -1,6 +1,6 @@
 # Semi-Supervised-Learning-For-Small-Sample-Project
 
-“小样本”项目中使用的半监督方法及部分数据
+“小样本”项目中使用的半监督方法及部分数据（敏感数据已经删除）
 
 ## 环境需求
 -   Windows or Linux
@@ -16,22 +16,22 @@
 
 ```
 Semi-Supervised-Learning-For-Small-Sample-Project
-├── SSL-Train(包含整个实验过程中使用过的逐轮数据、配置文件与部分权重[为下载地址])
+├── SSL-Train(包含整个实验过程中使用过的逐轮数据[敏感数据已删除]、配置文件与部分权重[为下载地址])
 │   ├── dataset-A(A数据集，为经过红外化处理后的Dota数据集，包含plane、helicopter、ship三类)
-│   ├── dataset-B(B数据集，为raw-data中部分数据经过数据增广而来，包含ship1、ship2、j6、j8、z9、chf六类)
+│   ├── dataset-B(B数据集，为raw-data中部分数据经过数据增广而来，包含六类，敏感数据已删除)
 │   │   ├── SSL-Experiment-Dataset 0
 │   │   ├── SSL-Experiment-Dataset 1-7
 ├── Test-Weights(验收时采用的权重)
 ├── darknet(为空，实验使用yolov3模型验证方案的可行性，按照https://github.com/AlexeyAB/darknet说明配置即可)
-├── document(技术报告与测试报告，已删除敏感内容，切勿外传)
+├── document(技术报告与测试报告，已删除)
 ├── inference(验收时使用的调用接口，包含基于pyqt的演示系统)
 │   ├── demo
-├── raw-data(原始数据，标注为yolo格式)
-├── test-output(自测试输出结果)
+├── raw-data(原始数据，标注为yolo格式，敏感数据已删除)
+├── test-output(自测试输出结果，敏感数据已删除)
 │   ├── HS
 │   ├── S
 │   ├── T
-├── test_data(自测试测试集)
+├── test_data(自测试测试集，敏感数据已删除)
 ├── utils(实验过程中的常用脚本)
 ```
 
@@ -58,8 +58,8 @@ Semi-Supervised-Learning-For-Small-Sample-Project
 - 3）B数据集制作
 ```
 1、基于raw-data中的数据，划分为训练集与测试集，项目统一的测试集（验收时有修改）为：
-飞行器测试图像：lp_scene1501-1_1m.bmp、lp_scene1501-2_1m.bmp、lp_scene2201-1_1m.bmp、lp_scene2201-3_1m.bmp。
-船测试图像：lb_scene0201-4_1m.bmp、lb_scene0901-1_1m.bmp、lb_scene1201-1_1m.bmp、lb_scene1201-2_1m.bmp、lb_scene1501-2_1m.bmp。
+飞行器测试图像：4张，敏感数据已删除。
+船测试图像：5张，敏感数据已删除。
 2、分别对训练集、测试集图片使用utils/imgaug-yolov3.py工具进行数据扩充，得到扩充后的训练集、测试集，此后，B数据集中的测试集不变，选取训练集图片的25%作为小样本，使用原生标注，组成小样本直接训练的训练集。
 3、以25%训练集图片及其原生标注文件为训练集，B数据集中的测试集为测试集，SSL-Train/dataset-B/SSL-Experiment-Dataset 0/cfg/（已经压缩到了SSL-Experiment-Dataset 0.zip中）为配置文件，teacher-A.conv.81为初始化权重，单卡展开小样本直接建模的训练。
 4、选取其early stop点位置的权重，验证其mAP，满足舰船类及其子类（即ship1和ship2的mAP都要求达到指标）mAP达到82%、飞行器类及其子类mAP达到75%即可，由于最终验收有提升量10%的要求，起点基数（mAP）不要选取的太高。
@@ -70,7 +70,7 @@ Semi-Supervised-Learning-For-Small-Sample-Project
 1、删除B数据集训练集中剩下的75%数据的原生标签，基于teacher-B.weights开始制作伪标签。运行utils/darknet_test.py（需要注释并开启部分代码段），可实现端到端的伪标签制作，其中，阈值设为0.95，若某张图片中有多个置信度不同的目标，只要有一个目标置信度低于0.95，则舍弃整个标注文件。
 2、经过伪标签制作后，通过运行utils/img_select.py，挑选出生成了高置信度伪标签的数据，并使用该脚本将数据分为n个文件夹，每个文件夹100张数据（最后一轮可不满100张）。例如，经过伪标签生成获得了649张含高置信度伪标签的数据，可分为7个文件夹，对应7轮实验，分别含有100/100/100/100/100/100/49张数据。
 3、基于每一个文件夹的数据制作train list，以项目验收实验过程中的train list为例，加上小样本的247张数据，train list分别包含247,347,447,547,647,747,847,947张数据，此过程中验证集保持不变。
-4、开展逐轮实验，具体的cfg文件可以参考SSL-Train/dataset-B/SSL-Experiment-Dataset 1-7/cfg(在压缩包SSL-Experiment-Dataset 0-7.zip中).
+4、开展逐轮实验，具体的cfg文件可以参考SSL-Train/dataset-B/SSL-Experiment-Dataset 1-7/cfg(在压缩包SSL-Experiment-Dataset 0-7.zip中，敏感数据已删除).
 5、验证每轮实验的early stop点mAP，记录实验数据，直到满足指标，获得满足舰船类及其子类92%、飞行器类及其子类85%以上mAP且提升量达到10%的权重student-7.weights。
 *若遇到某一子类检测率提升有限的情况，可使用老师模型预测一定数目的该类数据，等量替换每轮实验中的训练数据。例如在某次实验中发现舰船类(尤其是舰船2类)和超黄蜂类的检测率较低，因此在下一次的实验中，每组额外添加了20张舰船类数据(舰船1和舰船2混合，占比未知，随机抽选)和14张舰船2类、6张超黄蜂类数据，因此，每轮数据组成为：60张全种类数据(各类占比未知，随机抽选)、20张舰船类(舰船1和舰船2混合，占比未知，随机抽选)、14张舰船2类和6张超黄蜂类。
 ```
@@ -81,5 +81,5 @@ Semi-Supervised-Learning-For-Small-Sample-Project
 ```
 ## 演示系统与自测试
 
-- 演示系统基于pyqt，映射到linux图形界面进行演示，部分内容涉及保密，切勿外传。![演示系统界面](https://github.com/IEC-lab/Semi-Supervised-Learning-For-Small-Sample-Project/blob/main/inference/demo/demo.png)
-- 自测试实验记录及输出结果添加在了test_data和document下。
+- 演示系统基于pyqt，映射到linux图形界面进行演示。[演示系统界面](https://github.com/IEC-lab/Semi-Supervised-Learning-For-Small-Sample-Project/blob/main/inference/demo/demo.png)
+- 自测试实验记录及输出结果添加在了test_data和document下，敏感数据已删除。
