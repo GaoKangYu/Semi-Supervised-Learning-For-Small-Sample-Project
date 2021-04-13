@@ -2,6 +2,8 @@
 
 “小样本”项目中使用的半监督方法及部分数据（敏感数据已经删除）
 ![STAC](https://github.com/GaoKangYu/Semi-Supervised-Learning-For-Small-Sample-Project/blob/main/inference/STAC.png)
+## TBD
+- [ ] English version README
 ## 环境需求
 -   Windows or Linux
 -   Python 3.5+
